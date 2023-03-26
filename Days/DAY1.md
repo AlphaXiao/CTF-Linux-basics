@@ -9,9 +9,9 @@
 > kali虚拟机和centos虚拟机通过配置好的ip地址实现相互ping通。实验要求两台主机同时都使用nat模式。
 1. 查看CentOS虚拟机是否处于NAT模式
 
-![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/1.png)
+    ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/1.png)
 
-![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/2.png)
+    ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/2.png)
 
 2. 配置并查看ip地址
     - 通过`ip addr` 查看ip地址
@@ -80,7 +80,7 @@
     ```
 2. 重启网络服务 `sudo systemctl restart networking`
 
-### 路由转发拓扑实验
+## 路由转发拓扑实验
 > 需要实现192网段ping通172网段，以及中间涉及到了两个虚拟交换机vmnet2、vmnet3。客户机用的是win2003虚拟机。
 
 ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/4.png)
@@ -131,8 +131,15 @@
     - 复制ens33拷贝成另一个网卡的网络配置文件。`cp ifcfg-ens33 ifcfg-ens34`。进入ens34文件修改设备名称和IP地址。
     - 重启网络服务：`systemctl restart network`。
     - 用 `ip addr` 查看是否配置正确。
+    - 为了避免出现ens33接口连接到VMnet3上，ens34连接到Mnet2上这种错误。可以对比MAC地址。在`ip addr`里查看ens33的MAC地址，以太网接口的MAC地址是唯一的。打开中间CentOS7虚拟机的虚机设置，点击网络适配器（VMnet2）→高级→查看最下方MAC地址，对比看是否和前面查看的ens33的MAC地址相同。
 
-
+5. 开启中间的网关服务器（原CentOS7虚拟机）的路由转发服务
+    - 路由转发配置需要去内核配置文件更改。内核配置文件路径: `/etc/sysctl.conf`。
+    - `vim /etc/sysctl.conf`写入：`net.ipv4.ip_forward = 1` 表示基于ipv4是否开启路由转发
+    - 让内核控制文件立即生效: `sysctl -p`
+ 
+## 日志服务 & 搭建日志服务器
+1. 日志存放路径是 `cd /var/log/`，其中 `cd /var/log/secure`是登陆日志。
 
 
 
