@@ -5,7 +5,7 @@
 | 日期       | 学习内容（进度）                                                                            |
 | ---------- | ------------------------------------------------------------------------------- |
 | Day0       | [Linux的起源及基础命令](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/DAY0.md)                            |
-| Day1       | [网络地址配置与日志服务器](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/DAY1.md)                            |
+| Day1       | [网络地址配置与日志服务器 & ssh登录服务器后清理痕迹](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/DAY1.md)                            |
 | Day2       | [工具安装与第一次钓鱼、crontab周期性计划、dhcp服务、dns解析]()                            |
 | Day3       | [Apache虚拟主机 & mysql数据库应用]()                            |
 | Day4       | [Mysql数据库授权与lnmp、tomcat平台]()                            |
