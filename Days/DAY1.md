@@ -140,15 +140,61 @@
  
 ## 日志服务 & 搭建日志服务器
 1. 日志存放路径是 `cd /var/log/`，其中 `cd /var/log/secure`是登陆日志。
+2. 日志服务是`rsyslog`，可查看进程`systemctl status rsyslog`，从进程信息中可以看出此进程是从开机便自动开启，会对系统中重要的进程的运行状态进行日记记录。进程都有配置文件，一个进程可能有多个配置文件。配置文件都在`/etc/`目录下。日志服务的配置文件是`/etc/rsyslog.conf`。可以分析进程配置文件，从而了解这些文件是如何记录的。
+    - 例如，查看配置文件Rules部分中的`authpri.*`表示登录进程触发的日志记录。可以看到登陆日志是存放在`/var/log/secure`。
+    - 可以做个小实验去异地实时备份登录日志信息，添加 `authpriv.*     /var/log/spare.txt`把登录日志信息同时存放进`/var/log/spare.txt`文档中。改完配置文件需要重启进程才会生效`systemctl restart rsyslog`。用`su -用户名`切换到其他用户，再`exit`返回root用户。`cat /var/log/spare.txt`，会看到刚刚切换用户的具体登陆信息。
+    
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/6.png)
+        
+3. 日记级别分析。
+    - 上面实验中的`authpri.*` 格式是 `进程名.日志级别`。
+    - 日记有哪些级别可以通过查看man帮助得知 `man rsyslog.conf`。（注意：不是只有命令有man帮助手册，配置文件也有。配置文件的帮助手册就是教你如何配置的）
+    
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/7.png)
+        
+    - 可以手动触发一下日志，除了刚刚用`su -用户`切换用户出发登陆日志外，还可以用 `logger -p 服务进程名.日志级别 "自己定义的触发事件名称"`，例如`logger -p authpriv.err "secure error"`。去 `tail -5 /var/log/secure`查看刚刚触发的事件。
+    - 注意：emerg是日志级别中最紧急的，一旦触发，在屏幕上会立即显示。        
 
+## ssh登录服务器后清理痕迹
+1. `systemctl stop syslog` 或者 `service rsyslog stop`（后者是CentOS6的关闭方法）把日志服务给停了。把日志备份文件删除。
+2. 高级一点的方式 `echo "" > secure` 直接把登录日志清空。但实际上还有很多文件会记录登录日志，比如wtmp文件，可通过`last -f wtmp`查看。还有apache、nginx web服务的日志（访问日志 & 错误日志会记录ip）、history历史记录都会有所记录，都需要清理。历史记录的查看方式是`history`，清理方式是`history -c`。
 
+## 建立日志服务器实现针对以上问题的日志异地备份（备份登录日志）
+> 继续用上面路由转发拓扑实验的虚拟机做日志服务器实验。
 
+![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/8.png)
 
+1. 配置日志客户机
+    - 修改日志服务的配置文件 `vim /etc/rsyslog.conf` ，配置完一定要**重启服务**才能生效 `systemctl restart rsyslog`。
+    
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/9.png)
+        
+2. 配置日志服务器
+    -  修改日志服务的配置文件 `vim /etc/rsyslog.conf`，在最后添加规则 `:fromhost-ip, isequal, "对方IP" /var/log/存放文件夹名/存放文件.log`，例如:`:fromhost-ip, isequal, "172.16.2.254 /var/log/mylog/172.16.2.254.log`表示根据IP 172.16.2.254接收，接收到的日志保存到 `/var/log/mylog/172.16.2.254.log`中。
+        -   ```
+            格式
+            :属性, 匹配符号, "值" 保存位置
+            
+            属性：
+            fromhost-ip 按照ip地址来接收
+            fromhost 按照发送过来的主机名接收（dns）
+            msg 按照日志内容接收
+            hostname 按照日志内容中的主机名接收
+            
+            匹配符号：
+            isequal 等于 “172.16.2.254”
+            startswith 以什么开头 “172.16.2.”
+            contains 包含 “172” 
+            ```
+    -  开启TCP协议以及514端口。取消配置文件第19，20行的注释就可以。Vim编辑器末行模式下用`:set nu`可以显示行号。
+    
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/10.png)
+        
+    -  配置完一定要**重启服务**才能生效 `systemctl restart rsyslog`。
+    -  查看514端口是否开启，查看端口号是用 `ss -antpl`，其中，-a 选项表示显示所有连接，-n 选项表示以数字形式展示地址和端口号，-t 选项表示只显示 TCP 连接，-p 选项表示显示连接所属的进程信息，-l 选项表示只显示监听状态的连接。
 
-
-
-
-
+3. 验证日志是否备份
+    - 比如在win2003上装一个Xshell，远程登陆CentOS客户机。再去日志服务器（克隆CentOS）查看 `cd /var/log`，里面会多出`mylog`文件夹及`172.16.2.254.log`日志备份文件。
 
 
 
