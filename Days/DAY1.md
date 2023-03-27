@@ -1,7 +1,7 @@
 # 说明
 - [x]  学习工具：在VMware里装了CentOS7、Kali和win2003三台虚拟机，使用这三台机子做实验。
 - [x]  Linux基础：开始学习前已经了解了Linux的基本命令以及部分软件的使用例如vim、nano。
-- [x]  虚拟机配置：Kali有配置好源、下载了Googlepinyin、下载了VM-tools。CentOS永久关闭了防火墙`systemctl disable firewall.service`。关闭了虚拟网卡服务 `systemctl disable libvirtd.service`，这段命令输完之后需要重启虚拟机才会关闭虚拟网卡服务，可以用`systemctl reboot`重启。
+- [x]  虚拟机配置：Kali有配置好源、下载了Googlepinyin、下载了VM-tools。CentOS永久关闭了防火墙`systemctl disable firewall.service`。关闭了虚拟网卡服务 `systemctl disable libvirtd.service`，这段命令输完之后需要重启虚拟机才会关闭虚拟网卡服务，可以用`systemctl reboot`重启。centos指定了本地光盘作为软件的安装源，操作步骤为`cd /etc/yum.repos.d/`找到yum源文件存放位置。`rm -rf *`清空yum源文件。`systemctl start autofs` 开启光盘路径优化服务。`systemctl enablet autofs`使开机时自动开启。这样操作后会将光盘自动挂载到本地路径，存放在 `/misc/cd`。这样做的好处是可以离线安装软件包，下载软件不受网络影响。
 - [x]  网络方面基础：目前是自学通过了CCNA考试。
 
 ## 学习为虚拟机配置IP地址 
