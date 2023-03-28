@@ -24,7 +24,13 @@
 6. 如果是定时触发一个脚本，定完时之后，需要执行命令直接写脚本的绝对路径就可以。例如: 有脚本`/home/user/my_script.sh`。设定10分钟之后执行`at now + 10 minutes` `/bin/bash /home/user/my_script.sh`。需要注意的是，在执行脚本前，可能需要修改脚本的权限，以允许其执行。可以使用`chmod +x /home/user/my_script.sh` 。
 
 ## 周期性计划任务 cron
-1. 例:在6月份每周五的11点16分17分19点16分17分执行命令`date >> /tmp/test.txt`
+1. 例1:在6月份每周五的11点16分执行命令`date >> /tmp/test.txt`
+    - `date >> /tmp/test.txt` 把当前时间写进`/tmp/test.txt`文档中。
+    - `crontab -e` 会直接进入vim编辑页面。具体这个软件如何使用可以查看它的配置文件。配置文件都放在`/etc`下，`/etc/crontab`是它的配置文件。
+    - `vim /etc/crontab` 根据题目
+        - ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/11.png)
+    - 注意：普通用户是不能更改`vim /etc/crontab`，来实施计划任务的，因为没有权限。普通用户需用`crontab -e`自己编辑。一开始自己学习可以在root下，在配置文件中看着注释来设定。
+2. 例2：普通用户使用crontab计划任务对 `/var/log/secure` 进行打包并备份。要求将登录日志打包备份到`/tmp`目录中，一分钟备份一次看看效果。
 
 
 
