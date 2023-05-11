@@ -19,7 +19,7 @@
     - Kali的ip地址是自动分配的：VMware菜单栏的编辑 → 虚拟网络编辑器 → 更改设置。最下方可以看到Kali是使用本地DHCP服务将IP自动分配给虚拟机的。
     
     - CentOS需要手动配置IP。
-      - 具体怎么手动配置可以查看帮助文档 `ip addr help`。从上面Kali的IP地址中看到网段，这里自己配置CentOS的IP需要和Kali的IP在同一网段内。子: `ip addr add 192.168.226.200/24 dev ens33`。 
+      - 具体怎么手动配置可以查看帮助文档 `ip addr help`。从上面Kali的IP地址中看到网段，这里自己配置CentOS的IP需要和Kali的IP在同一网段内。 `ip addr add 192.168.226.200/24 dev ens33`。 
       
         ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/3.png)
       
