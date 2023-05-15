@@ -65,7 +65,17 @@
         
     - 验证dns服务： `nslookup www.qq.com`
 
-5. Centos已经可以正常访问dns解析了，但是因为windows没有做nat网络地址转换,所以Windows还不行
+5. Centos已经可以正常访问dns解析了，但是因为windows没有做nat网络地址转换,所以Windows还不行，所以要配置NAT。
+    - `iptables -t nat -nvL` 显示nat配置规则。如果编写规则错误 `iptables -t nat -F` 清空所有规则。
+        
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/17.png)
+        
+        注意：这个配置只是暂时有效，重启之后nat规则会消失。具体的配置原理（如何配置永久nat）会在后面防火墙（iptables）提及。
+        
+6. 下载wireshark抓包器：`yum install wireshark-gonme`。可以使用此软件抓包。
+7. 在DNS主配置文件中再构建对dns对jd.com域的权威解析 `vim /etc/named.conf`。
+
+    ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/18.png)
 
 
 
