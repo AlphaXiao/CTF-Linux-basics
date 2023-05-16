@@ -77,6 +77,28 @@
 
     ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/18.png)
 
+8. 再配置DNS的区域解析配置文件（次配置文件）。`cd /var/named/`，ls可查看里面有一个`named.empty`模板。我们直接拷贝`cp -a named.empty jd.com.zone`。`-a`参数可以保持原属性拷贝。如果不加这个参数，拷贝出来的文件所属组将会是root，可程序启动是通过进程-程序用户（daemon）启动的，这样一来程序将无法启动。
+    - 可以拷贝两份文件去探究`copy`的用法。`cp -a named.empty jd.com.zone` 和 `cp named.empty jd.com.zone2`。查看权限 `ls -l jd.*`，可以观察到上述组别的不同。
+    - 改写拷贝好的`jd.com.zone`文件。`vim jd.com.zone`。
+        
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/19.png)
+        
+        每次该写完服务文件要记得重启服务 `systemctl restart named`
+        
+    - 现在可以去win主机上解析jd.com，会发现已经实现了对指定网站的错误解析。
+        
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/20.png)
+        
+9. 使用centos7 的apache服务提供一个钓鱼站的页面
+    - 下载httpd: `yum install httpd`
+    - 启动服务 `systemctl start httpd`。确认服务是否启动`ss -antpl | grep 80`
+    - 去win主机浏览器访问jd.com就会出现我们钓鱼站的页面
+        
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/21.png)
+        
+    - 如果要修改页面内容，可以直接修改html。
+    
+        ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/22.png)
 
 
 
