@@ -6,7 +6,7 @@
 | ---------- | ------------------------------------------------------------------------------- |
 | Day0       | [Linux的起源及基础命令](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/DAY0.md)                            |
 | Day1       | [网络地址配置与日志服务器 & ssh登录服务器后清理痕迹](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/DAY1.md)                            |
-| Day2       | [Xshell的使用 & 执行一次钓鱼任务 [crontab周期性计划、dhcp服务、dns解析]]()                            |
+| Day2       | [Xshell的使用 & 执行一次钓鱼任务 [crontab周期性计划、dhcp服务、dns解析]](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/DAY2.md)                            |
 | Day3       | [Apache虚拟主机 & mysql数据库应用]()                            |
 | Day4       | [Mysql数据库授权与lnmp、tomcat平台]()                            |
 | Day5       | [靶场搭建及基础渗透练习]()                            |
