@@ -34,5 +34,20 @@
   - 建立数据库，建立表格写入数据
     -  ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/28.png)
     -  ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/29.png)
+
+  - 其他增删改查这些基础的知识可以去看上传的MySQL基础文档。 
+
+## PHP安装
+![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/30.png)
+
+1. `yum install php php-mbstring php-mysql` 
+  - 修改配置文件`vim /etc/php.ini`
+    
+    ![image](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/pictures/31.png)
+    
+2. 有可能在安装完php后还是没有访问权限，有可能是selinux的问题。可以用`setenforce 0`临时关闭去刷新页面。 `setenforce 1`是开启。
+  > selinux 会为linux操作系统中所有的文件设定标签。
+    
+    
     
 
