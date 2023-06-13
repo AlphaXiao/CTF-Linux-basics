@@ -9,6 +9,5 @@
 | Day2       | [Xshell的使用 & 执行一次钓鱼任务 [crontab周期性计划、dhcp服务、dns解析]](https://github.com/AlphaXiao/CTF-Linux-basics/blob/main/Days/DAY2.md)                            |
 | Day3       | [Apache虚拟主机 & mysql数据库应用]()                            |
 | Day4       | [Mysql数据库授权与lnmp、tomcat平台]()                            |
-| Day5       | [靶场搭建及基础渗透练习]()                            |
-| Day6       | [Iptables & firewall]()                            |
-| Day7       | [Shell脚本 & 编写naginx启动脚本]()                            |
+| Day5       | [Iptables & firewall]()                            |
+| Day6       | [Shell脚本 & 编写naginx启动脚本]()                            |
